@@ -57,18 +57,17 @@
 			on:click={handleSaveFile}>Save File</button
 		>
 	</div>
-	<div>
+	<div class="flex justify-center items-center gap-4 pb-12">
 		<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input"
-			>Upload file</label
+			>You can also import an existing JSON file</label
 		>
 		<input
-			class="p-2 flex justify-start items-center w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
+			class="p-2 flex flex-1 justify-start items-center w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
 			aria-describedby="file_input_help"
 			accept="application/json"
 			id="file_input"
 			type="file"
 			bind:files={importFiles}
 		/>
-		<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JSON.</p>
 	</div>
 </div>

@@ -52,13 +52,16 @@
 </script>
 
 <div class="p-4">
-	<EditTaskModal
-		bind:visible={modals.editTask.visible}
-		bind:data={modals.editTask.data}
-		on:save={handleTaskEditSave}
-	/>
+	{#if modals.editTask.data}
+		<EditTaskModal
+			bind:visible={modals.editTask.visible}
+			bind:data={modals.editTask.data}
+			on:save={handleTaskEditSave}
+		/>
+	{/if}
 
 	<TodoItemCreate on:create={handleTaskCreate} />
+	<TaskFileIo bind:items on:save={saveToLocalStorage} />
 	<TodoItems
 		bind:items
 		on:completedChange={saveToLocalStorage}
@@ -66,6 +69,4 @@
 		on:delete={handleTaskDelete}
 		on:titleChange={saveToLocalStorage}
 	/>
-
-	<TaskFileIo bind:items on:save={saveToLocalStorage} />
 </div>
