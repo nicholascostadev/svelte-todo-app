@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '../app.css';
 	import type { Task } from '../model';
 	import TodoItems from '../components/items/TodoItems.svelte';
 	import TodoItemCreate from '../components//items/TodoItemCreate.svelte';
@@ -52,7 +51,7 @@
 	});
 </script>
 
-<div>
+<div class="p-4">
 	<EditTaskModal
 		bind:visible={modals.editTask.visible}
 		bind:data={modals.editTask.data}
@@ -62,6 +61,7 @@
 	<TodoItemCreate on:create={handleTaskCreate} />
 	<TodoItems
 		bind:items
+		on:completedChange={saveToLocalStorage}
 		on:edit={handleTaskEdit}
 		on:delete={handleTaskDelete}
 		on:titleChange={saveToLocalStorage}
@@ -69,9 +69,3 @@
 
 	<TaskFileIo bind:items on:save={saveToLocalStorage} />
 </div>
-
-<style>
-	div {
-		padding: 1rem;
-	}
-</style>

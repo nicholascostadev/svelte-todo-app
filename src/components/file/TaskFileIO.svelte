@@ -44,19 +44,10 @@
 	$: handleFilesChange(importFiles);
 </script>
 
-<div class="saving-wrapper">
+<div class="mt-4 flex flex-col gap-2">
 	<div>
 		<input type="text" placeholder="File name" bind:value={fileName} />
 		<button on:click={handleSaveFile}>Save file</button>
 	</div>
 	<input type="file" accept="application/json" bind:files={importFiles} />
 </div>
-
-<style>
-	.saving-wrapper {
-		margin-top: 1rem;
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-</style>

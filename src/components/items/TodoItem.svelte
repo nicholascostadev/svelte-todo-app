@@ -12,21 +12,12 @@
 	export let data: Task;
 </script>
 
-<div>
+<div class="flex justify-between border border-red-300 p-4">
 	<span
 		spellcheck="false"
 		contenteditable="true"
 		bind:textContent={data.title}
 		on:blur={handleTitleBlur}>{data.title}</span
 	>
-	<TodoItemActions on:delete on:edit />
+	<TodoItemActions on:completedChange on:delete on:edit bind:completed={data.completed} />
 </div>
-
-<style>
-	div {
-		display: flex;
-		justify-content: space-between;
-		border: 1px solid tomato;
-		padding: 1rem;
-	}
-</style>

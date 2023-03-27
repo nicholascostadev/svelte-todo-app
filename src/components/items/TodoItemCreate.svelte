@@ -23,13 +23,10 @@
 	}
 </script>
 
-<input on:keydown={handleKeyDown} bind:value={newTask} type="text" placeholder="Your new task!" />
-
-<style>
-	input {
-		width: 100%;
-
-		padding: 1rem;
-		margin-bottom: 1rem;
-	}
-</style>
+<input
+	class="w-full p-4 mb-4"
+	on:keydown={handleKeyDown}
+	bind:value={newTask}
+	type="text"
+	placeholder="Your new task!"
+/>
