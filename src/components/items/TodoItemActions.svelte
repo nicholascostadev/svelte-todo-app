@@ -21,6 +21,12 @@
 
 <div class="flex items-center gap-2">
 	<input type="checkbox" bind:checked={completed} class="w-5 h-5" />
-	<button on:click={handleEdit}>Edit</button>
-	<button on:click={handleDelete}>Delete</button>
+	<button
+		class="text-gray-300 bg-gray-600 hover:bg-gray-700 px-2 py-1 rounded-md transition-colors"
+		on:click={handleEdit}>Edit</button
+	>
+	<button
+		class="text-gray-300 bg-red-600 hover:bg-red-700 px-2 py-1 rounded-md transition-colors"
+		on:click={handleDelete}>Delete</button
+	>
 </div>

@@ -14,7 +14,7 @@
 		on:click={handleCloseModal}
 	>
 		<div
-			class="bg-rose-100 my-[15%] mx-auto p-5 border-1 border-rose-200 w-4/5"
+			class="bg-gray-100 my-[15%] mx-auto p-5 border border-red-300 w-4/5"
 			on:click|stopPropagation
 		>
 			<slot />

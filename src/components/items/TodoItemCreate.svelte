@@ -24,7 +24,7 @@
 </script>
 
 <input
-	class="w-full p-4 mb-4"
+	class="w-full p-4 mb-4 bg-gray-700 rounded-lg flex justify-start items-center text-gray-300"
 	on:keydown={handleKeyDown}
 	bind:value={newTask}
 	type="text"

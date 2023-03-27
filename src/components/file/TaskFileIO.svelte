@@ -44,10 +44,31 @@
 	$: handleFilesChange(importFiles);
 </script>
 
-<div class="mt-4 flex flex-col gap-2">
-	<div>
-		<input type="text" placeholder="File name" bind:value={fileName} />
-		<button on:click={handleSaveFile}>Save file</button>
+<div class="mt-4 flex flex-col gap-4">
+	<div class="flex gap-4">
+		<input
+			class="p-2 flex flex-1 justify-start items-center w-full text-sm rounded-lg text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
+			type="text"
+			bind:value={fileName}
+			placeholder="File Name"
+		/>
+		<button
+			class="text-gray-300 bg-gray-600 hover:bg-gray-700 rounded-md px-2 py-1 transition-colors"
+			on:click={handleSaveFile}>Save File</button
+		>
 	</div>
-	<input type="file" accept="application/json" bind:files={importFiles} />
+	<div>
+		<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input"
+			>Upload file</label
+		>
+		<input
+			class="p-2 flex justify-start items-center w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
+			aria-describedby="file_input_help"
+			accept="application/json"
+			id="file_input"
+			type="file"
+			bind:files={importFiles}
+		/>
+		<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JSON.</p>
+	</div>
 </div>
