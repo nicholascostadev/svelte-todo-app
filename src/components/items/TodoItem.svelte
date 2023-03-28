@@ -15,6 +15,7 @@
 <div class="flex justify-between items-center border border-gray-300/40 rounded-lg p-4">
 	<span
 		class="text-gray-300"
+		class:line-through={data.completed}
 		spellcheck="false"
 		contenteditable="true"
 		bind:textContent={data.title}

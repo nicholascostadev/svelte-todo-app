@@ -6,14 +6,21 @@
 	const dispatch = createEventDispatcher();
 
 	export let data: Task;
-
 	export let visible = false;
+
+	export let lastFocus: HTMLElement | null = null;
 
 	function handleCloseModal() {
 		visible = false;
 	}
 
-	function handleSave() {
+	$: if (!visible) {
+		if (lastFocus) lastFocus?.focus();
+
+		console.log({ lastFocus });
+	}
+
+	function handleSave(e: Event) {
 		if (data?.title === '') return;
 
 		dispatch('save', data);
@@ -24,12 +31,12 @@
 		if (data?.title === '') return;
 
 		if (e.key == 'Enter') {
-			handleSave();
+			handleSave(e);
 		}
 	}
 </script>
 
-<Modal bind:visible>
+<Modal bind:visible {lastFocus}>
 	<div class="flex flex-col gap-4 justify-start items-start">
 		<h1 class="text-gray-300 text-2xl">Edit task</h1>
 		<div class="flex w-full gap-4">
@@ -42,8 +49,10 @@
 			/>
 			<button
 				class="bg-gray-500 hover:bg-gray-600 px-2 py-1 rounded-md text-gray-200 transition-colors"
-				on:click={handleSave}>Save</button
+				on:click={handleSave}
 			>
+				Save
+			</button>
 		</div>
 	</div>
 </Modal>

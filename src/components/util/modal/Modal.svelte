@@ -1,30 +1,63 @@
 <script lang="ts">
+	import { afterUpdate, onDestroy, onMount } from 'svelte';
+
 	export let visible = false;
+	export let lastFocus: HTMLElement | null = null;
 
 	function handleCloseModal() {
 		visible = false;
 	}
+
+	let modal: HTMLDivElement | null;
+
+	function handleEscapeKey(e: KeyboardEvent) {
+		if (e.key === 'Escape') {
+			e.preventDefault();
+			handleCloseModal();
+		}
+	}
+
+	onMount(() => {
+		document.addEventListener('keydown', handleEscapeKey, {
+			capture: true
+		});
+	});
+
+	afterUpdate(() => {
+		if (modal && visible) {
+			modal?.focus();
+		}
+	});
+
+	onDestroy(() => {
+		document.removeEventListener('keydown', handleEscapeKey, {
+			capture: true
+		});
+
+		if (lastFocus) lastFocus.focus();
+	});
 </script>
 
 {#if visible}
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!--Ignore this just for now-->
-
 	<div
 		id="popup-modal"
 		tabindex="-1"
 		class="fixed top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full h-screen bg-black/40"
 		on:click={handleCloseModal}
+		on:keydown={handleEscapeKey}
+		bind:this={modal}
+		aria-label="Modal"
 	>
 		<div
 			class="absolute w-full max-w-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 			on:click|stopPropagation
+			on:keydown|stopPropagation
 		>
 			<div class="relative rounded-lg shadow bg-gray-700">
 				<button
 					type="button"
 					class="absolute top-3 right-2.5 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center hover:bg-gray-800 hover:text-white"
-					data-modal-hide="popup-modal"
+					aria-label="Close modal"
 					on:click={handleCloseModal}
 				>
 					<svg

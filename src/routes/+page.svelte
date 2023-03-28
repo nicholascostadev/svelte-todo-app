@@ -1,19 +1,30 @@
 <script lang="ts">
 	import type { Task } from '../model';
 	import TodoItems from '../components/items/TodoItems.svelte';
-	import TodoItemCreate from '../components//items/TodoItemCreate.svelte';
+	import TodoItemCreate from '../components/items/TodoItemCreate.svelte';
 	import EditTaskModal from '../components/modal/EditTaskModal.svelte';
 	import { onMount } from 'svelte';
 	import TaskFileIo from '../components/file/TaskFileIO.svelte';
 	import { modals } from '../modals';
 
 	export let items: Task[] = [];
+	let lastFocus: HTMLElement | null = null;
 
 	const TASKS_STORAGE_KEY = 'tasks';
 
-	function handleTaskEdit({ detail }: { detail: Task }) {
-		modals.editTask.data = { ...detail };
+	type HandleTaskEditProps = {
+		detail: {
+			event: any;
+			item: Task;
+		};
+	};
+
+	function handleTaskEdit({ detail }: HandleTaskEditProps) {
+		const { item, event } = detail;
+		modals.editTask.data = { ...item };
 		modals.editTask.visible = true;
+
+		lastFocus = event.detail.target;
 	}
 
 	function handleTaskEditSave({ detail }: { detail: Task }) {
@@ -52,16 +63,10 @@
 </script>
 
 <div class="p-4">
-	{#if modals.editTask.data}
-		<EditTaskModal
-			bind:visible={modals.editTask.visible}
-			bind:data={modals.editTask.data}
-			on:save={handleTaskEditSave}
-		/>
-	{/if}
-
-	<TodoItemCreate on:create={handleTaskCreate} />
-	<TaskFileIo bind:items on:save={saveToLocalStorage} />
+	<section aria-label="Adding tasks section">
+		<TodoItemCreate on:create={handleTaskCreate} />
+		<TaskFileIo bind:items on:save={saveToLocalStorage} />
+	</section>
 	<TodoItems
 		bind:items
 		on:completedChange={saveToLocalStorage}
@@ -70,3 +75,12 @@
 		on:titleChange={saveToLocalStorage}
 	/>
 </div>
+
+{#if modals.editTask.data}
+	<EditTaskModal
+		bind:visible={modals.editTask.visible}
+		bind:data={modals.editTask.data}
+		on:save={handleTaskEditSave}
+		{lastFocus}
+	/>
+{/if}

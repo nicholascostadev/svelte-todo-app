@@ -29,4 +29,5 @@
 	bind:value={newTask}
 	type="text"
 	placeholder="Your new task!"
+	aria-label="Name your new task"
 />
